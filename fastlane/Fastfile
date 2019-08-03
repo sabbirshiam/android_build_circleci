@@ -21,19 +21,6 @@ platform :android do
     gradle(task: "test")
   end
 
-  before_all do |lane, options|
-    @build_type = "Debug"
-    if not options.empty?
-      @build_type = options[:release] ? "Release" : "Debug"
-    end
-   end
-
-  #bundle exec fastlane assemble_build release:true
-  desc "Assemble Build"
-  lane :assemble_build do |options|
-    gradle(task: "assemble", build_type: @build_type)
-  end
-
   desc "Submit a new Beta Build to Crashlytics Beta"
   lane :beta do
     gradle(task: "clean assembleRelease")
@@ -48,6 +35,4 @@ platform :android do
     gradle(task: "clean assembleRelease")
     upload_to_play_store
   end
-
-
 end
