@@ -114,14 +114,6 @@ workflows:
           filters:
             branches:
               only:
-                - beta
+                - master
           requires:
             - test_unit
-      #- deploy_play_store:
-    #      filters:
-     #       branches:
-      #        only:
-       #         - production
-        #  requires:
-       #     - test_unit
-       #     - test_instrumentation
