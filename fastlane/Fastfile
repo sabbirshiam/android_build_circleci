@@ -26,7 +26,7 @@ platform :android do
     gradle(task: "clean assembleDebug")
     crashlytics(
        api_token: 'e507e95e4f6eb9d9afc626bfba8cd6c826196e1e',
-       build_secret: 'eb895c687b87593027ba1666685cbac6854367e550a6062990f4a0093095e5bd'
+       build_secret: 'eb895c687b87593027ba1666685cbac6854367e550a6062990f4a0093095e5bd',
        notes: 'testing build apk'
     )
   
