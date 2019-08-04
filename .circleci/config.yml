@@ -88,7 +88,7 @@ jobs:
       - *save_gems_cache
       - run:
           name: Deploy to Crashlytics Beta
-          command: bundle exec fastlane deploy_to_crashlytics
+          command: bundle exec fastlane beta
 
   ## Deploy to Play Store
   deploy_play_store:
