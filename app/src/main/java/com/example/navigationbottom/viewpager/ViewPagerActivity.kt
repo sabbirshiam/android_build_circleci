@@ -31,7 +31,8 @@ class ViewPagerActivity : AppCompatActivity() {
                 }
 
                 override fun removeItem(position: Int) {
-                    viewList.removeAt(position)
+                    removeViewItem(position)
+
                 }
             },
             object : CustomViewPagerAdapter.ContentCreator {
@@ -51,10 +52,16 @@ class ViewPagerActivity : AppCompatActivity() {
                 }
                 else -> {
                     pageCount++
+                    if (viewList.size < 3) { viewList.add(1, SecondFragment())}
                     vpPager?.adapter?.notifyDataSetChanged()
                 }
             }
         }
+    }
+
+    private fun removeViewItem(position: Int) {
+        viewList.removeAt(position)
+
     }
 
     private fun initializeViewList() {
