@@ -1,11 +1,14 @@
 package com.example.navigationbottom
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import com.crashlytics.android.Crashlytics
+import com.example.navigationbottom.viewpager.ViewPagerActivity
+import com.shiam.navigationbottom.R
 import io.fabric.sdk.android.Fabric
 
 
@@ -43,6 +46,10 @@ class MainActivity : AppCompatActivity() {
 
     fun forceCrash(view: View) {
         throw RuntimeException("This is a crash")
+    }
+
+    fun navigateToViewPager(view: View) {
+        startActivity(Intent(this, ViewPagerActivity::class.java))
     }
 
 }
