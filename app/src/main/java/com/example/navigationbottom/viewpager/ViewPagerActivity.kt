@@ -3,6 +3,7 @@ package com.example.navigationbottom.viewpager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.PagerAdapter
 import com.example.navigationbottom.viewpager.views.FirstFragment
 import com.example.navigationbottom.viewpager.views.SecondFragment
 import com.example.navigationbottom.viewpager.views.ThirdFragment
@@ -23,7 +24,7 @@ class ViewPagerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_view_pager)
         setSupportActionBar(toolbar)
         initializeViewList()
-
+        vpPager?.offscreenPageLimit = 9
         vpPager?.adapter = CustomViewPagerAdapter(supportFragmentManager,
             object : CustomViewPagerAdapter.ContentManager {
                 override fun getCount(): Int {
@@ -32,7 +33,15 @@ class ViewPagerActivity : AppCompatActivity() {
 
                 override fun removeItem(position: Int) {
                     removeViewItem(position)
+                }
 
+                override fun getItemPosition(item: Any): Int {
+//                    return PagerAdapter.POSITION_UNCHANGED
+                     var index = viewList.indexOf(item as Fragment)
+                    return when{
+                        index >= 0 -> index
+                        else -> PagerAdapter.POSITION_NONE
+                    }
                 }
             },
             object : CustomViewPagerAdapter.ContentCreator {
@@ -44,10 +53,10 @@ class ViewPagerActivity : AppCompatActivity() {
         fab.setOnClickListener { view ->
             when {
                 pageCount > 2 -> {
+                    var fragments = (vpPager?.adapter as? CustomViewPagerAdapter)?.getRegisteredFragment(pageCount - 2)
                     (vpPager?.adapter as? CustomViewPagerAdapter)?.removeItem(pageCount - 2)
                     pageCount=2
                     vpPager?.adapter?.notifyDataSetChanged()
-
                     vpPager?.setCurrentItem(pageCount, false)
                 }
                 else -> {
@@ -61,7 +70,6 @@ class ViewPagerActivity : AppCompatActivity() {
 
     private fun removeViewItem(position: Int) {
         viewList.removeAt(position)
-
     }
 
     private fun initializeViewList() {
@@ -71,13 +79,6 @@ class ViewPagerActivity : AppCompatActivity() {
     }
 
     private fun getItemByPosition(position: Int): Fragment {
-//        return when (position) {
-//            0 -> FirstFragment()
-//            1 -> SecondFragment()
-//            2 -> ThirdFragment()
-//            else -> throw IllegalArgumentException("unknown position")
-//        }
-
         return viewList[position]
     }
 

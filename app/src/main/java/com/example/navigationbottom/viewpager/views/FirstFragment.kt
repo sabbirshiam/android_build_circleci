@@ -37,6 +37,9 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         textToChange.text = getString(R.string.display_first)
+        second_button.setOnClickListener {
+            second_button.text = "onClicked."
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
